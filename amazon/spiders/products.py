@@ -20,7 +20,7 @@ class ProductsSpider(Spider):
         category = response.xpath('//select/option/@value').extract()[0]
         url_search = '{}?url={}&field-keywords={}'.format(action,
                                                           category,
-                                                          self.keyword)
+                                                          '+'.join(self.keyword.split(' ')))
         absolute_url = response.urljoin(url_search)
         yield Request(absolute_url, callback=self.parse_list)
 
